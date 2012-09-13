@@ -8,6 +8,7 @@ public class GridResponse {
 	
 	private String message;
 	private ArrayList<String> errors;
+	private String error;
 	
 	public GridResponse(boolean attempted, String message) {
 		super();
@@ -54,6 +55,19 @@ public class GridResponse {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	@Override
+	public String toString() {
+		return "GridResponse [message=" + message + "]";
 	}
 	
 }

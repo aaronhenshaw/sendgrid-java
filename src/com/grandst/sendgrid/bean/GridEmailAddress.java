@@ -23,7 +23,10 @@ public class GridEmailAddress {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "GridEmailAddress [email=" + email + ", name=" + name + "]";
+	}
 	
 }
