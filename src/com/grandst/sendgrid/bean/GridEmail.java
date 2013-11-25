@@ -1,5 +1,9 @@
 package com.grandst.sendgrid.bean;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +20,8 @@ public class GridEmail {
 	private String fromname;
 	private String replyto;
 	private Date date; //hmmm
+    private ArrayList<Attachment> attachments;
+
 	
 	//TODO: headers later. not vital.
 	private HashMap<String, String> headers;
@@ -126,7 +132,41 @@ public class GridEmail {
 	public void setHeaders(HashMap<String, String> headers) {
 		this.headers = headers;
 	}
-	
-	
-	
+
+    public ArrayList<Attachment> getAttachments() {
+        return this.attachments;
+    }
+
+    public void addFile(Attachment attachment) {
+        this.addAttachment(attachment);
+    }
+
+    public void addFile(File file) throws FileNotFoundException {
+        this.addAttachment(file);
+    }
+
+    public void addAttachment(Attachment attachment) {
+        this.attachments.add(attachment);
+    }
+
+    public void addAttachment(File file) throws FileNotFoundException {
+        Attachment attachment = new Attachment(file);
+        this.addAttachment(attachment);
+    }
+
+    public static class Attachment {
+        public final String name;
+        public final InputStream contents;
+
+        public Attachment(File file) throws FileNotFoundException {
+            this.name = file.getName();
+            this.contents = new FileInputStream(file);
+        }
+
+        public Attachment(String name, InputStream contents) {
+            this.name = name;
+            this.contents = contents;
+        }
+    }
+
 }

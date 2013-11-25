@@ -47,7 +47,9 @@ public final class SendGridMailer {
 				nvps.add(new BasicNameValuePair("fromname",email.getFromname()));
 			if (email.getReplyto() != null && !email.getReplyto().equals(""))
 				nvps.add(new BasicNameValuePair("replyto",email.getReplyto()));
-			
+			for (GridEmail.Attachment attachment: email.getAttachments()) {
+                nvps.add(new BasicNameValuePair(String.format("files[%s]",attachment.name),attachment.contents));
+            }
 			nvps.add(new BasicNameValuePair("api_user", sg.getApiUser()));
 			nvps.add(new BasicNameValuePair("api_key", sg.getApiKey()));
 			
